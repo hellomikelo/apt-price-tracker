@@ -19,7 +19,8 @@ options.add_argument('--disable-gpu')
 user_agent = 'Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/120.0.0.0 Safari/537'
 options.add_argument('user-agent={0}'.format(user_agent))
 
-driver = webdriver.Chrome(executable_path=ChromeDriverManager().install(), options=options) 
+driver = webdriver.Chrome(options=options) 
+# driver = webdriver.Chrome(executable_path=ChromeDriverManager().install(), options=options) 
 driver.set_page_load_timeout(90)
 
 # Load the URL and get the page source
