@@ -22,8 +22,8 @@ options.add_argument('user-agent={0}'.format(user_agent))
 
 driver = webdriver.Chrome(options=options) 
 # driver = webdriver.Chrome(executable_path=ChromeDriverManager().install(), options=options) 
-# driver.implicitly_wait(90)
-driver.set_page_load_timeout(90)
+driver.implicitly_wait(90)
+# driver.set_page_load_timeout(90)
 
 # Load the URL and get the page source
 URL = 'https://liveat678bellflower.com/floor-plans.aspx'
@@ -46,22 +46,30 @@ for idx, section in enumerate(sections):
     unit_price_str = section.find_element(By.CLASS_NAME, "unit-rent").get_attribute("innerHTML")
     unit_number_str = section.find_element(By.CLASS_NAME, "unit-number").get_attribute("innerHTML")
     unit_sqft_str = section.find_element(By.CLASS_NAME, "unit-sqft").get_attribute("innerHTML")
+    available_date_str = section.find_element(By.CSS_SELECTOR, "div.unit-container-left > div:nth-child(3)").get_attribute("innerHTML")
+    lease_term_str = section.find_element(By.CSS_SELECTOR, "div.unit-container-left > div:nth-child(4)").get_attribute("innerHTML")
 
     unit_sqft = int(re.findall(r'\d+', unit_sqft_str.replace(',', ''))[0])
     unit_number = int(re.findall(r'\d+', unit_number_str)[0])
     unit_price = unit_price_str.replace('$', '').replace(',', '')
     unit_price = int(unit_price[-4:])
+    available_date = re.findall(r'\d{2}/\d{2}/\d{4}', available_date_str)[0]
+    lease_term = int(lease_term_str.replace('Lease Term: ', ''))
     
     assert unit_type_str == 'The Preserve', 'Wrong unit type! Please check.'
     
     _res = {"unit_number": unit_number,
             "unit_price": unit_price,
+            "available_date": available_date,
+            "lease_term": lease_term,
             "unit_sqft": unit_sqft
             }
     
     res.append(_res)
 
 res2 = sorted(res, key=lambda x: (x['unit_price'], x['unit_number']))
+
+[print(_res) for _res in res2]
 
 # Write out results
 with open("unit_prices.json", "w") as f:
