@@ -6,6 +6,7 @@ from webdriver_manager.chrome import ChromeDriverManager
 import os
 import re
 import json
+import selenium
 
 # Initialize Chrome Selenium
 options = webdriver.ChromeOptions()
@@ -21,6 +22,7 @@ options.add_argument('user-agent={0}'.format(user_agent))
 
 driver = webdriver.Chrome(options=options) 
 # driver = webdriver.Chrome(executable_path=ChromeDriverManager().install(), options=options) 
+# driver.implicitly_wait(90)
 driver.set_page_load_timeout(90)
 
 # Load the URL and get the page source
@@ -31,13 +33,14 @@ results_container = WebDriverWait(driver, 100).until(
     EC.presence_of_element_located((By.ID, 'par_10617247'))
 )
 
-sections = results_container.find_elements(By.CLASS_NAME, "unit-container")
+assert type(results_container) == selenium.webdriver.remote.webelement.WebElement, "results_container is a wrong type! Please check."
 
-# Find elements
-res = []
+sections = results_container.find_elements(By.CLASS_NAME, "unit-container")
 
 assert len(res) != 0, "Result list is empty! Please check."
 
+# Find elements
+res = []
 for idx, section in enumerate(sections):
     unit_type_str = section.find_element(By.XPATH, '//*[@id="text-area"]/div/div[1]/h2').get_attribute("innerHTML").strip()
     unit_price_str = section.find_element(By.CLASS_NAME, "unit-rent").get_attribute("innerHTML")
@@ -49,7 +52,7 @@ for idx, section in enumerate(sections):
     unit_price = unit_price_str.replace('$', '').replace(',', '')
     unit_price = int(unit_price[-4:])
     
-    assert unit_type_str == 'The Preserve', "Wrong unit type! Please check."
+    assert unit_type_str == 'The Preserve', 'Wrong unit type! Please check.'
     
     _res = {"unit_number": unit_number,
             "unit_price": unit_price,
@@ -59,8 +62,6 @@ for idx, section in enumerate(sections):
     res.append(_res)
 
 res2 = sorted(res, key=lambda x: (x['unit_price'], x['unit_number']))
-
-[print(_res) for _res in res2]
 
 # Write out results
 with open("unit_prices.json", "w") as f:
