@@ -35,6 +35,9 @@ sections = results_container.find_elements(By.CLASS_NAME, "unit-container")
 
 # Find elements
 res = []
+
+assert len(res) != 0, "Result list is empty! Please check."
+
 for idx, section in enumerate(sections):
     unit_type_str = section.find_element(By.XPATH, '//*[@id="text-area"]/div/div[1]/h2').get_attribute("innerHTML").strip()
     unit_price_str = section.find_element(By.CLASS_NAME, "unit-rent").get_attribute("innerHTML")
@@ -54,8 +57,6 @@ for idx, section in enumerate(sections):
             }
     
     res.append(_res)
-
-assert len(res) != 0, "Result list is empty! Please check."
 
 res2 = sorted(res, key=lambda x: (x['unit_price'], x['unit_number']))
 
