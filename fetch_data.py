@@ -51,10 +51,10 @@ for idx, section in enumerate(sections):
 
     unit_sqft = int(re.findall(r'\d+', unit_sqft_str.replace(',', ''))[0])
     unit_number = int(re.findall(r'\d+', unit_number_str)[0])
-    unit_price = unit_price_str.replace('$', '').replace(',', '')
+    unit_price = unit_price_str.replace('$', '').replace(',', '').strip()
     unit_price = int(unit_price[-4:])
-    available_date = re.findall(r'\d{2}/\d{2}/\d{4}', available_date_str)[0]
-    lease_term = int(lease_term_str.replace('Lease Term: ', ''))
+    available_date = re.findall(r'(\d{2}/\d{2}/\d{4}|NOW)', available_date_str)[0]
+    lease_term = int(lease_term_str.replace('Lease Term: ', '').strip())
     
     assert unit_type_str == 'The Preserve', 'Wrong unit type! Please check.'
     
