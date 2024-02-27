@@ -46,7 +46,7 @@ for idx, section in enumerate(sections):
     unit_price = unit_price_str.replace('$', '').replace(',', '')
     unit_price = int(unit_price[-4:])
     
-    assert unit_type_str == 'The Preserve', 'Wrong unit type! Please check.'
+    assert unit_type_str == 'The Preserve', "Wrong unit type! Please check."
     
     _res = {"unit_number": unit_number,
             "unit_price": unit_price,
@@ -55,7 +55,11 @@ for idx, section in enumerate(sections):
     
     res.append(_res)
 
+assert len(res) != 0, "Result list is empty! Please check."
+
 res2 = sorted(res, key=lambda x: (x['unit_price'], x['unit_number']))
+
+[print(_res) for _res in res2]
 
 # Write out results
 with open("unit_prices.json", "w") as f:
