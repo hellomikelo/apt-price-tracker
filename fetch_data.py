@@ -37,8 +37,6 @@ assert type(results_container) == selenium.webdriver.remote.webelement.WebElemen
 
 sections = results_container.find_elements(By.CLASS_NAME, "unit-container")
 
-assert len(res) != 0, "Result list is empty! Please check."
-
 # Find elements
 res = []
 for idx, section in enumerate(sections):
@@ -60,6 +58,8 @@ for idx, section in enumerate(sections):
             }
     
     res.append(_res)
+
+assert len(res) != 0, "Result list is empty! Please check."
 
 res2 = sorted(res, key=lambda x: (x['unit_price'], x['unit_number']))
 
