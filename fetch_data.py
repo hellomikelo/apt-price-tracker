@@ -43,7 +43,7 @@ def get_data():
 
     # Find elements
     res = []
-    for idx, section in enumerate(sections):
+    for section in sections:
         unit_type_str = section.find_element(By.XPATH, '//*[@id="text-area"]/div/div[1]/h2').get_attribute("innerHTML").strip()
         unit_price_str = section.find_element(By.CLASS_NAME, "unit-rent").get_attribute("innerHTML")
         unit_number_str = section.find_element(By.CLASS_NAME, "unit-number").get_attribute("innerHTML")

@@ -44,14 +44,14 @@ def send_to_discord(file_path):
         print(f'Logged in as {bot.user.name} ({bot.user.id})')
         channel = bot.get_channel(1084864988688154627) 
         embed = discord.Embed(
-            title='🏡 Rental price update!',
+            title='🏡 Bellflower apartment price update',
             description='Check https://liveat678bellflower.com/floor-plans.aspx.',
             color=discord.Color.blue()
         )
         
         # Add fields to the embed
         for _res in res: 
-            value_str = f"${_res['unit_price']:,}, available {_res['available_date']} for {_res['lease_term']}-month lease"
+            value_str = f"**Unit price:** ${_res['unit_price']:,}\n**Available:** {_res['available_date']} ({_res['lease_term']}-month lease)"
             embed.add_field(name=f"🏠 Unit #{_res['unit_number']}", value=value_str, inline=False)
         
         await channel.send(embed=embed)
