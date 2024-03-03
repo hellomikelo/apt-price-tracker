@@ -42,7 +42,7 @@ def send_to_discord(file_path):
     @bot.event
     async def on_ready():
         print(f'Logged in as {bot.user.name} ({bot.user.id})')
-        channel = bot.get_channel(1084864988688154627) 
+        channel = bot.get_channel(1213971777655668836) 
         embed = discord.Embed(
             title='🏡 Bellflower apartment price update',
             description='Check https://liveat678bellflower.com/floor-plans.aspx.',
