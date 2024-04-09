@@ -18,9 +18,9 @@ def process_response(response):
         print('Got a response!')
         df = pd.DataFrame(response.json()['data']['units'])
         df = df[['unit_number', 'area', 'price', 'available_on', 'display_lease_term']]
-        current_time = datetime.datetime.now().strftime('%Y-%m-%d %H:%M:%S')
         df['display_lease_term'] = df['display_lease_term'].str.replace(r'[a-zA-Z\s]', '', regex=True).astype(int)
-        df['insert_time'] = current_time
+        # current_time = datetime.datetime.now().strftime('%Y-%m-%d %H:%M:%S')
+        # df['insert_time'] = current_time
         df.head()
     else:
         # Request failed
