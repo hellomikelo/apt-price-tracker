@@ -1,3 +1,4 @@
+from email import header
 import pandas as pd
 import datetime
 import json
@@ -31,10 +32,14 @@ def save_json(df):
     df.to_json('newest_prices_peartree.json', orient='records')
     print('Done saving JSON.')
 
+def save_csv(df):
+    df.to_csv('newest_prices_peartree.csv', header=True, index=False)
+    print('Done saving CSV.')
+
 
 if __name__ == '__main__':
     # Peartree API URL
     URL = 'https://sightmap.com/app/api/v1/rx1p8jj1vd6/sightmaps/62268'
     response = send_request(URL)
     df = process_response(response)
-    save_json(df)
+    save_csv(df)
