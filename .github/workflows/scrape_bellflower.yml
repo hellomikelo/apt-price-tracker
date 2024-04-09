@@ -1,4 +1,4 @@
-name: Get latest rental prices
+name: Get latest rental prices from Bellflower
 
 on:
   push:
