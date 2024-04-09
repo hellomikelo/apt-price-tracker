@@ -29,16 +29,16 @@ def process_response(response):
 
 
 def save_json(df):
-    df.to_json('newest_prices_peartree.json', orient='records')
+    df.to_json('newest_prices_grove.json', orient='records')
     print('Done saving JSON.')
 
 def save_csv(df):
-    df.to_csv('newest_prices_peartree.csv', header=True, index=False)
+    df.to_csv('newest_prices_grove.csv', header=True, index=False)
     print('Done saving CSV.')
 
 
 if __name__ == '__main__':
-    # Peartree API URL
+    # API URL
     URL = 'https://sightmap.com/app/api/v1/4yjp202rwxl/sightmaps/2398'
     response = send_request(URL)
     df = process_response(response)

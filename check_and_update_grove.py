@@ -80,8 +80,8 @@ def send_to_discord(file_path):
 
 
 if __name__ == '__main__':
-    old_csv_path = 'old_prices_peartree.csv'
-    latest_csv_path = 'newest_prices_peartree.csv'
+    old_csv_path = 'old_prices_grove.csv'
+    latest_csv_path = 'newest_prices_grove.csv'
 
     if not same_csvs(latest_csv_path, old_csv_path):
         # Send latest result to Discord
